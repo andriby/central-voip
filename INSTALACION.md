@@ -13,15 +13,16 @@
 3. [Paso 1: Copiar el Proyecto](#3-paso-1-copiar-el-proyecto)
 4. [Paso 2: Instalar Docker](#4-paso-2-instalar-docker)
 5. [Paso 3: Generar Certificados TLS](#5-paso-3-generar-certificados-tls)
-6. [Paso 4: Construir la Imagen de Asterisk](#6-paso-4-construir-la-imagen-de-asterisk)
-7. [Paso 5: Levantar los Servicios](#7-paso-5-levantar-los-servicios)
-8. [Paso 6: Instalar Softphones](#8-paso-6-instalar-softphones)
-9. [Paso 7: Verificar la Instalacion](#9-paso-7-verificar-la-instalacion)
-10. [Paso 8: Probar Llamadas](#10-paso-8-probar-llamadas)
-11. [Paso 9: Capturar Trafico](#11-paso-9-capturar-trafico)
-12. [Credenciales y Plan de Numeracion](#12-credenciales-y-plan-de-numeracion)
-13. [Comandos de Gestion](#13-comandos-de-gestion)
-14. [Solucion de Problemas](#14-solucion-de-problemas)
+6. [Paso 3.5: Configurar la IP del Host en pjsip.conf](#6-paso-35-configurar-la-ip-del-host-en-pjsipconf)
+7. [Paso 4: Construir la Imagen de Asterisk](#7-paso-4-construir-la-imagen-de-asterisk)
+8. [Paso 5: Levantar los Servicios](#8-paso-5-levantar-los-servicios)
+9. [Paso 6: Instalar Softphones](#9-paso-6-instalar-softphones)
+10. [Paso 7: Verificar la Instalacion](#10-paso-7-verificar-la-instalacion)
+11. [Paso 8: Probar Llamadas](#11-paso-8-probar-llamadas)
+12. [Paso 9: Capturar Trafico](#12-paso-9-capturar-trafico)
+13. [Credenciales y Plan de Numeracion](#13-credenciales-y-plan-de-numeracion)
+14. [Comandos de Gestion](#14-comandos-de-gestion)
+15. [Solucion de Problemas](#15-solucion-de-problemas)
 
 ---
 
@@ -154,25 +155,82 @@ docker run hello-world
 
 ## 5. Paso 3: Generar Certificados TLS
 
+> **Nota:** Si usás `./instalar-rapido.sh` o `./instalar.sh`, este paso se hace automáticamente, incluyendo la IP del host en el SAN.
+
 ```bash
 # Crear directorio de certificados
 mkdir -p ~/central-voip/certs
 
+# Detectar IP del host
+HOST_IP=$(ip route get 1.1.1.1 2>/dev/null | awk '{print $7; exit}')
+[ -z "$HOST_IP" ] && HOST_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+[ -z "$HOST_IP" ] && HOST_IP="127.0.0.1"
+
+# Crear archivo de configuracion para OpenSSL con SAN
+cat > /tmp/asterisk-openssl-san.cnf <<EOF
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+C = VE
+ST = Caracas
+L = Caracas
+O = NovaLink
+OU = VoIP
+CN = asterisk.novalink.local
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = asterisk.novalink.local
+IP.1 = 127.0.0.1
+IP.2 = $HOST_IP
+EOF
+
 # Generar certificado autofirmado (validez 1 ano)
-openssl req -x509 -newkey rsa:2048 \
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ~/central-voip/certs/asterisk.key \
   -out ~/central-voip/certs/asterisk.crt \
-  -days 365 -nodes \
-  -subj "/C=VE/ST=Caracas/L=Caracas/O=NovaLink/OU=VoIP/CN=asterisk.novalink.local"
+  -config /tmp/asterisk-openssl-san.cnf
 
 # Verificar que se generaron
 ls -la ~/central-voip/certs/
 # Debe mostrar: asterisk.crt (1.3K) y asterisk.key (1.7K)
+
+# Verificar que el SAN incluye la IP del host
+openssl x509 -in ~/central-voip/certs/asterisk.crt -noout -text | grep -A2 "Subject Alternative Name"
 ```
 
 ---
 
-## 6. Paso 4: Construir la Imagen de Asterisk
+## 6. Paso 3.5: Configurar la IP del Host en pjsip.conf (opcional si usás el instalador)
+
+Si usás `./instalar-rapido.sh` o `./instalar.sh`, este paso se hace automáticamente.
+
+Si instalás manualmente, el archivo `conf/pjsip.conf` usa los placeholders `__HOST_IP__` y `__LOCAL_NET__`. Reemplazalos por la IP y red local de la máquina:
+
+```bash
+cd ~/central-voip
+
+HOST_IP=$(ip route get 1.1.1.1 2>/dev/null | awk '{print $7; exit}')
+[ -z "$HOST_IP" ] && HOST_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+[ -z "$HOST_IP" ] && HOST_IP="127.0.0.1"
+LOCAL_NET="${HOST_IP%.*}.0/24"
+
+sed -i "s/external_signaling_address=.*/external_signaling_address=$HOST_IP/g" conf/pjsip.conf
+sed -i "s/external_media_address=.*/external_media_address=$HOST_IP/g" conf/pjsip.conf
+sed -i "s|local_net=__LOCAL_NET__|local_net=$LOCAL_NET|g" conf/pjsip.conf
+
+# Verificar
+grep -A5 "\[transport-udp\]" conf/pjsip.conf | head -7
+```
+
+---
+
+## 7. Paso 4: Construir la Imagen de Asterisk
 
 ```bash
 # Navegar al directorio del proyecto
@@ -190,9 +248,9 @@ docker images asterisk-custom
 
 ---
 
-## 7. Paso 5: Levantar los Servicios
+## 8. Paso 5: Levantar los Servicios
 
-### 7.1 Iniciar Asterisk:
+### 8.1 Iniciar Asterisk:
 
 ```bash
 cd ~/central-voip
@@ -209,7 +267,7 @@ docker exec pbx-asterisk asterisk -rx "pjsip show endpoints"
 # Debe mostrar: Endpoint 1001/1001, Endpoint 1002/1002, Endpoint troncal-remota/0
 ```
 
-### 7.2 Iniciar herramientas de prueba (opcional):
+### 8.2 Iniciar herramientas de prueba (opcional):
 
 ```bash
 # Iniciar sipp para simular softphones (pruebas automatizadas)
@@ -228,9 +286,9 @@ docker ps --filter name=sipp
 
 ---
 
-## 8. Paso 6: Instalar Softphones
+## 9. Paso 6: Instalar Softphones
 
-### 8.1 Descargar Linphone:
+### 9.1 Descargar Linphone:
 
 ```bash
 # Crear directorio para softphones
@@ -238,9 +296,20 @@ mkdir -p ~/central-voip/softphones
 
 # Descargar Linphone 5.3.4 (AppImage)
 cd ~/central-voip/softphones
-wget -q --timeout=120 \
-  "https://download.linphone.org/releases/linux/app/Linphone-5.3.4.AppImage" \
-  -O linphone.AppImage
+
+# Usar wget o curl segun este disponible
+if command -v wget &> /dev/null; then
+    wget -q --timeout=120 \
+      "https://download.linphone.org/releases/linux/app/Linphone-5.3.4.AppImage" \
+      -O linphone.AppImage
+elif command -v curl &> /dev/null; then
+    curl -fsSL --max-time 120 \
+      "https://download.linphone.org/releases/linux/app/Linphone-5.3.4.AppImage" \
+      -o linphone.AppImage
+else
+    echo "Error: se requiere wget o curl"
+    exit 1
+fi
 
 # Hacer ejecutable
 chmod +x linphone.AppImage
@@ -250,25 +319,25 @@ ls -la linphone.AppImage
 # Debe mostrar: ~97MB y permisos rwxr-xr-x
 ```
 
-### 8.2 Ejecutar Linphone:
+### 9.2 Ejecutar Linphone:
 
 ```bash
 cd ~/central-voip/softphones
 ./linphone.AppImage
 ```
 
-### 8.3 Configurar softphone para Extension 1001 (Adrian):
+### 9.3 Configurar softphone para Extension 1001 (Adrian):
 
 1. En Linphone, ir a **Preferences** → **Manage accounts**
 2. Click **Add account** → **SIP account**
 3. Completar:
    - **Username:** `1001`
    - **Password:** `nova1001`
-   - **Domain/SIP server:** `TU_IP_LOCAL` (ej: `192.168.1.100`)
+   - **Domain/SIP server:** `TU_IP_LOCAL` (ej: `192.168.1.100`). Si usaste el instalador, la IP ya fue detectada automaticamente.
    - **Transport:** UDP
 4. Click **Apply** y **OK**
 
-### 8.4 Configurar softphone para Extension 1002 (Aaron):
+### 9.4 Configurar softphone para Extension 1002 (Aaron):
 
 Aaron debe:
 1. Descargar Linphone en su computadora
@@ -279,7 +348,23 @@ Aaron debe:
    - **Domain/SIP server:** `TU_IP_LOCAL`
    - **Transport:** UDP
 
-### 8.5 Ver tu IP local:
+### 9.5 Configurar softphone para TLS:
+
+Para conectar por TLS:
+
+1. En Linphone, ir a **Preferences** → **Manage accounts**
+2. Configurar la cuenta:
+   - **Username:** `1001`
+   - **Password:** `nova1001`
+   - **Domain/SIP server:** `TU_IP_LOCAL:5061`
+   - **Transport:** TLS
+3. Al registrar, Linphone mostrara una advertencia de certificado autofirmado. Aceptalo.
+4. Verificar que el certificado incluye la IP del servidor:
+   ```bash
+   openssl x509 -in ~/central-voip/certs/asterisk.crt -noout -text | grep -A2 "Subject Alternative Name"
+   ```
+
+### 9.6 Ver tu IP local:
 
 ```bash
 # Ejecutar esto en tu computadora
@@ -291,7 +376,7 @@ hostname -I
 
 ---
 
-## 9. Paso 7: Verificar la Instalacion
+## 10. Paso 7: Verificar la Instalacion
 
 ### Verificar endpoints:
 
@@ -315,7 +400,19 @@ docker exec pbx-asterisk asterisk -rx "pjsip show transports"
 **Salida esperada:**
 ```
 Transport:  transport-udp   udp   0   0   0.0.0.0:5060
+Transport:  transport-tcp   tcp   0   0   0.0.0.0:5060
 Transport:  transport-tls   tls   0   0   0.0.0.0:5061
+```
+
+### Verificar certificado TLS:
+
+```bash
+openssl x509 -in ~/central-voip/certs/asterisk.crt -noout -text | grep -A2 "Subject Alternative Name"
+```
+
+**Salida esperada:** debe incluir la IP de la máquina, por ejemplo:
+```
+DNS:asterisk.novalink.local, IP Address:127.0.0.1, IP Address:192.168.1.100
 ```
 
 ### Verificar dialplan:
@@ -366,9 +463,9 @@ Park Call          #72
 
 ---
 
-## 10. Paso 8: Probar Llamadas
+## 11. Paso 8: Probar Llamadas
 
-### 10.1 Llamada interna 1001 -> 1002:
+### 11.1 Llamada interna 1001 -> 1002:
 
 ```bash
 # Iniciar llamada
@@ -388,7 +485,7 @@ PJSIP/1002-00000001   Up   AppDial((Outgoing Line))
 PJSIP/1001-00000000   Up   Dial(PJSIP/1002,30)
 ```
 
-### 10.2 Llamada interna 1002 -> 1001:
+### 11.2 Llamada interna 1002 -> 1001:
 
 ```bash
 docker exec pbx-asterisk asterisk -rx "channel originate PJSIP/1002 application Dial PJSIP/1001,30"
@@ -397,7 +494,7 @@ docker exec pbx-asterisk asterisk -rx "core show channels"
 docker exec pbx-asterisk asterisk -rx "core stop channels"
 ```
 
-### 10.3 Llamada por troncal (saliente):
+### 11.3 Llamada por troncal (saliente):
 
 ```bash
 docker exec pbx-asterisk asterisk -rx "channel originate PJSIP/1001 extension 91234567@outgoing"
@@ -406,7 +503,7 @@ docker exec pbx-asterisk asterisk -rx "core show channels"
 docker exec pbx-asterisk asterisk -rx "core stop channels"
 ```
 
-### 10.4 Prueba de Call Hold (Retencion):
+### 11.4 Prueba de Call Hold (Retencion):
 
 ```bash
 # Verificar configuracion RTP timeout
@@ -427,7 +524,7 @@ docker exec pbx-asterisk asterisk -rx "core show channels"
 docker exec pbx-asterisk asterisk -rx "core stop channels"
 ```
 
-### 10.5 Prueba de Call Parking (Estacionamiento):
+### 11.5 Prueba de Call Parking (Estacionamiento):
 
 ```bash
 # Estacionar llamada
@@ -445,9 +542,9 @@ docker exec pbx-asterisk asterisk -rx "core show channels"
 
 ---
 
-## 11. Paso 9: Capturar Trafico
+## 12. Paso 9: Capturar Trafico
 
-### 11.1 Iniciar captura:
+### 12.1 Iniciar captura:
 
 ```bash
 # Iniciar contenedor de captura en la interfaz bridge del host
@@ -462,7 +559,7 @@ docker run -d --net host --privileged --name tcpdump-host \
 docker ps --filter name=tcpdump-host
 ```
 
-### 11.2 Realizar llamada y capturar:
+### 12.2 Realizar llamada y capturar:
 
 ```bash
 # Hacer llamada (mientras tcpdump esta capturando)
@@ -480,7 +577,7 @@ docker stop tcpdump-host
 ls -la ~/central-voip/captures/*.pcap
 ```
 
-### 11.3 Analizar captura con tshark:
+### 12.3 Analizar captura con tshark:
 
 ```bash
 # Ver flujo SIP
@@ -494,7 +591,7 @@ docker run --rm -v ~/central-voip/captures:/captures:z \
 
 ---
 
-## 12. Credenciales y Plan de Numeracion
+## 13. Credenciales y Plan de Numeracion
 
 ### Extensiones:
 
@@ -534,7 +631,7 @@ docker run --rm -v ~/central-voip/captures:/captures:z \
 
 ---
 
-## 13. Comandos de Gestion
+## 14. Comandos de Gestion
 
 ### Contenedor:
 
@@ -597,7 +694,7 @@ docker exec pbx-asterisk asterisk -rx "core stop channels"
 
 ---
 
-## 14. Solucion de Problemas
+## 15. Solucion de Problemas
 
 ### Error: "permission denied" al usar docker
 
@@ -614,6 +711,25 @@ newgrp docker
 **Causa:** SELinux en Fedora/Ultramarine bloquea archivos montados.
 
 **Solucion:** Ya esta resuelto con el flag `:z` en docker-compose.yml.
+
+### Error: TLS "certificate invalid" o "unable to get local issuer certificate"
+
+**Causa:** El certificado no incluye la IP del servidor en el SAN, o el softphone no confia en el certificado autofirmado.
+
+**Solucion:**
+
+1. Verificar que el certificado incluye la IP del host:
+   ```bash
+   openssl x509 -in ~/central-voip/certs/asterisk.crt -noout -text | grep -A2 "Subject Alternative Name"
+   ```
+
+2. Si no incluye la IP correcta, regeneralo:
+   ```bash
+   cd ~/central-voip
+   ./instalar-rapido.sh
+   ```
+
+3. En Linphone, aceptar el certificado autofirmado cuando aparezca la advertencia.
 
 ### Error: "Could not create dialog to invalid URI"
 
@@ -683,12 +799,11 @@ sudo firewall-cmd --reload
 
 1. Copiar todo el directorio `~/central-voip/` al servidor
 2. Instalar Docker (ver Paso 2)
-3. Generar certificados (ver Paso 3)
-4. Construir imagen (ver Paso 4)
-5. Ajustar IP del troncal en `conf/pjsip.conf` si es necesario
-6. Levantar servicios (ver Paso 5)
-7. Verificar funcionamiento (ver Paso 7)
-8. Para TLS en produccion, reemplazar certificados autofirmados por validos
+3. Ejecutar `./instalar-rapido.sh` para generar certificados con SAN y detectar la IP del servidor
+4. Construir imagen (ver Paso 4) — el instalador ya lo hace automaticamente
+5. Levantar servicios (ver Paso 5)
+6. Verificar funcionamiento (ver Paso 7)
+7. Para TLS en produccion, reemplazar certificados autofirmados por validos
 
 ---
 
@@ -702,4 +817,4 @@ sudo firewall-cmd --reload
 
 ---
 
-*Ultima actualizacion: 22 de septiembre de 2026*
+*Ultima actualizacion: 12 de octubre de 2026*
