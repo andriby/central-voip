@@ -1,0 +1,167 @@
+[Sep 23 00:13:12] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 00:13:12] NOTICE[1] loader.c: 315 modules will be loaded.
+[Sep 23 00:13:12] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Sep 23 00:13:12] NOTICE[1] indications.c: Default country for indication tones: us
+[Sep 23 00:13:12] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Sep 23 00:13:12] ERROR[1] config_options.c: Could not find option suitable for category '1001' named 'caller_id' at line 22 of 
+[Sep 23 00:13:12] ERROR[1] res_sorcery_config.c: Could not create an object of type 'endpoint' with id '1001' from configuration file 'pjsip.conf'
+[Sep 23 00:13:12] ERROR[1] config_options.c: Could not find option suitable for category '1002' named 'caller_id' at line 44 of 
+[Sep 23 00:13:12] ERROR[1] res_sorcery_config.c: Could not create an object of type 'endpoint' with id '1002' from configuration file 'pjsip.conf'
+[Sep 23 00:13:12] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 23 00:13:12] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Sep 23 00:13:12] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Sep 23 00:13:12] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Sep 23 00:13:12] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 00:13:12] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Sep 23 00:13:12] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 00:13:12] WARNING[1] loader.c: Some non-required modules failed to load.
+[Sep 23 00:13:13] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Sep 23 00:13:13] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Sep 23 00:13:13] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Sep 23 00:13:13] ERROR[1] loader.c: cdr_custom declined to load.
+[Sep 23 00:13:13] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Sep 23 00:13:13] ERROR[1] loader.c: cel_custom declined to load.
+[Sep 23 00:13:13] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Sep 23 00:13:33] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1001' named 'caller_id' at line 22 of 
+[Sep 23 00:13:33] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1001' from configuration file 'pjsip.conf'
+[Sep 23 00:13:33] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1002' named 'caller_id' at line 44 of 
+[Sep 23 00:13:33] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1002' from configuration file 'pjsip.conf'
+[Sep 23 00:13:33] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:13:47] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1001' named 'caller_id' at line 22 of 
+[Sep 23 00:13:47] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1001' from configuration file 'pjsip.conf'
+[Sep 23 00:13:47] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1002' named 'caller_id' at line 44 of 
+[Sep 23 00:13:47] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1002' from configuration file 'pjsip.conf'
+[Sep 23 00:13:47] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:13:54] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1001' named 'caller_id' at line 22 of 
+[Sep 23 00:13:54] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1001' from configuration file 'pjsip.conf'
+[Sep 23 00:13:54] ERROR[30] config_options.c: Could not find option suitable for category 'endpoint-1002' named 'caller_id' at line 44 of 
+[Sep 23 00:13:54] ERROR[30] res_sorcery_config.c: Could not create an object of type 'endpoint' with id 'endpoint-1002' from configuration file 'pjsip.conf'
+[Sep 23 00:13:54] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:14:00] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 00:14:13] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:19:49] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:47:26] NOTICE[30] res_pjsip/pjsip_distributor.c: Request 'REGISTER' from '<sip:1001@172.18.0.2>' failed for '172.18.0.3:5062' (callid: z8JhzlidcpQOFU6Tq2MuPv6HEoRlPzZy) - No matching endpoint found
+[Sep 23 00:47:26] NOTICE[30] res_pjsip/pjsip_distributor.c: Request 'REGISTER' from '<sip:1001@172.18.0.2>' failed for '172.18.0.3:5062' (callid: z8JhzlidcpQOFU6Tq2MuPv6HEoRlPzZy) - No matching endpoint found
+[Sep 23 00:47:26] NOTICE[30] res_pjsip/pjsip_distributor.c: Request 'REGISTER' from '<sip:1001@172.18.0.2>' failed for '172.18.0.3:5062' (callid: z8JhzlidcpQOFU6Tq2MuPv6HEoRlPzZy) - Failed to authenticate
+[Sep 23 00:47:57] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:48:06] WARNING[30] res_pjsip_registrar.c: AOR '' not found for endpoint '1001' (172.18.0.3:5062)
+[Sep 23 00:48:35] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 00:55:57] ERROR[30] res_pjsip.c: Endpoint '1001': Could not create dialog to invalid URI '1001'.  Is endpoint registered and reachable?
+[Sep 23 00:55:57] ERROR[30] chan_pjsip.c: Failed to create outgoing session to endpoint '1001'
+[Sep 23 00:56:19] ERROR[30] res_pjsip.c: Endpoint '1001': Could not create dialog to invalid URI '1001'.  Is endpoint registered and reachable?
+[Sep 23 00:56:19] ERROR[30] chan_pjsip.c: Failed to create outgoing session to endpoint '1001'
+[Sep 23 00:56:19] NOTICE[577][C-00000001] app_dial.c: Unable to create channel of type 'PJSIP' (cause 3 - No route to destination)
+[Sep 23 01:00:07] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 01:04:35] NOTICE[30] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 01:05:30] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:05:30] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:05:30] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:05:30] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:06:43] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:06:43] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:06:43] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:06:43] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:08:18] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:08:18] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:08:18] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:08:18] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:09:08] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:09:08] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:09:08] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:09:08] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:10:02] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:10:02] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:10:02] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:10:02] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:11:09] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:11:09] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:11:09] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:11:09] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:11:45] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:11:45] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:11:45] ERROR[27] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:11:45] WARNING[27] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:14:01] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 01:14:01] NOTICE[1] loader.c: 315 modules will be loaded.
+[Sep 23 01:14:02] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Sep 23 01:14:02] WARNING[1] features_config.c: Parkinglots are no longer configurable in features.conf; parking is now handled by res_parking.conf
+[Sep 23 01:14:02] WARNING[1] features_config.c: The option 'parkext' is no longer configurable in features.conf.
+[Sep 23 01:14:02] WARNING[1] features_config.c: The option 'parkpos' is no longer configurable in features.conf.
+[Sep 23 01:14:02] WARNING[1] features_config.c: The option 'context' is no longer configurable in features.conf.
+[Sep 23 01:14:02] WARNING[1] features_config.c: The option 'parkingtime' is no longer configurable in features.conf.
+[Sep 23 01:14:02] WARNING[1] features_config.c: The option 'comebacktoorigin' is no longer configurable in features.conf.
+[Sep 23 01:14:02] ERROR[1] config_options.c: Could not find option suitable for category 'general' named 'blindxfer' at line 17 of 
+[Sep 23 01:14:02] ERROR[1] config_options.c: In features.conf: Processing options for general failed
+[Sep 23 01:14:02] NOTICE[1] features_config.c: Could not load features config; using defaults
+[Sep 23 01:14:02] NOTICE[1] indications.c: Default country for indication tones: us
+[Sep 23 01:14:02] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Sep 23 01:14:02] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 23 01:14:02] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Sep 23 01:14:02] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Sep 23 01:14:02] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Sep 23 01:14:02] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 01:14:02] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Sep 23 01:14:02] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 01:14:03] WARNING[1] loader.c: Some non-required modules failed to load.
+[Sep 23 01:14:03] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Sep 23 01:14:03] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Sep 23 01:14:03] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Sep 23 01:14:03] ERROR[1] loader.c: cdr_custom declined to load.
+[Sep 23 01:14:03] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Sep 23 01:14:03] ERROR[1] loader.c: cel_custom declined to load.
+[Sep 23 01:14:03] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Sep 23 01:15:30] ERROR[29] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:15:30] WARNING[29] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:15:30] ERROR[29] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:15:30] WARNING[29] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:15:41] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 01:15:41] NOTICE[32] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 01:15:41] NOTICE[156] cdr.c: CDR simple logging enabled.
+[Sep 23 01:15:41] WARNING[156] features_config.c: Parkinglots are no longer configurable in features.conf; parking is now handled by res_parking.conf
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'parkext' is no longer configurable in features.conf.
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'parkpos' is no longer configurable in features.conf.
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'context' is no longer configurable in features.conf.
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'parkingtime' is no longer configurable in features.conf.
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'comebacktoorigin' is no longer configurable in features.conf.
+[Sep 23 01:15:41] WARNING[156] features_config.c: The option 'comebackcontext' is no longer configurable in features.conf.
+[Sep 23 01:15:41] ERROR[156] config_options.c: Could not find option suitable for category 'general' named 'blindxfer' at line 18 of 
+[Sep 23 01:15:41] ERROR[156] config_options.c: In features.conf: Processing options for general failed
+[Sep 23 01:15:41] NOTICE[32] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 23 01:15:41] WARNING[156] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 23 01:15:41] NOTICE[156] app_queue.c: queuerules.conf has not changed since it was last loaded. Not taking any action.
+[Sep 23 01:16:43] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-22 21:40:14 UTC
+[Sep 23 01:16:43] NOTICE[1] loader.c: 315 modules will be loaded.
+[Sep 23 01:16:43] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Sep 23 01:16:43] NOTICE[1] indications.c: Default country for indication tones: us
+[Sep 23 01:16:43] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Sep 23 01:16:43] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 23 01:16:43] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Sep 23 01:16:43] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Sep 23 01:16:43] ERROR[1] config_options.c: Could not find option suitable for category 'general' named 'parkext' at line 7 of 
+[Sep 23 01:16:43] ERROR[1] config_options.c: In res_parking.conf: Processing options for general failed
+[Sep 23 01:16:43] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Sep 23 01:16:43] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 01:16:43] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Sep 23 01:16:43] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Sep 23 01:16:44] WARNING[1] loader.c: Some non-required modules failed to load.
+[Sep 23 01:16:44] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Sep 23 01:16:44] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Sep 23 01:16:44] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Sep 23 01:16:44] ERROR[1] loader.c: res_parking declined to load.
+[Sep 23 01:16:44] ERROR[1] loader.c: cdr_custom declined to load.
+[Sep 23 01:16:44] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Sep 23 01:16:44] ERROR[1] loader.c: cel_custom declined to load.
+[Sep 23 01:16:44] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Sep 23 01:17:33] NOTICE[131] loader.c: Unloading module 'res_parking.so' that previously declined to load
+[Sep 23 01:17:33] ERROR[131] config_options.c: Could not find option suitable for category 'parkedcalls-timeout' named 'exten' at line 15 of 
+[Sep 23 01:17:33] ERROR[131] config_options.c: In res_parking.conf: Processing options for parkedcalls-timeout failed
+[Sep 23 01:18:10] NOTICE[151] loader.c: Unloading module 'res_parking.so' that previously declined to load
+[Sep 23 01:18:42] ERROR[28] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:18:42] WARNING[28] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:18:42] ERROR[28] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:18:42] WARNING[28] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:19:27] WARNING[241] pbx.c: No such application 'Park()'
+[Sep 23 01:19:27] ERROR[28] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:19:27] WARNING[28] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory
+[Sep 23 01:20:10] ERROR[28] cdr_csv.c: Unable to open file /var/log/asterisk//cdr-csv//Master.csv : No such file or directory
+[Sep 23 01:20:10] WARNING[28] cdr_csv.c: Unable to write CSV record to master '/var/log/asterisk//cdr-csv//Master.csv' : No such file or directory

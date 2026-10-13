@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  pbx-asterisk:
+    image: asterisk-custom:latest
+    container_name: pbx-asterisk
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./conf/pjsip.conf:/etc/asterisk/pjsip.conf:z
+      - ./conf/extensions.conf:/etc/asterisk/extensions.conf:z
+      - ./conf/features.conf:/etc/asterisk/features.conf:z
+      - ./conf/res_parking.conf:/etc/asterisk/res_parking.conf:z
+      - ./conf/confbridge.conf:/etc/asterisk/confbridge.conf:z
+      - ./conf/rtp.conf:/etc/asterisk/rtp.conf:z
+      - ./conf/voicemail.conf:/etc/asterisk/voicemail.conf:z
+      - ./certs:/etc/asterisk/certs:z
+      - ./logs:/var/log/asterisk:z
+    healthcheck:
+      test: ["CMD", "asterisk", "-rx", "core show version"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  pbx-remota:
+    image: asterisk-custom:latest
+    container_name: pbx-remota
+    restart: unless-stopped
+    networks:
+      voip-net:
+        ipv4_address: 172.18.0.50
+    ports:
+      - "5064:5064/udp"
+      - "10101-10200:10101-10200/udp"
+    volumes:
+      - ./conf/remota/pjsip.conf:/etc/asterisk/pjsip.conf:z
+      - ./conf/remota/extensions.conf:/etc/asterisk/extensions.conf:z
+      - ./conf/remota/rtp.conf:/etc/asterisk/rtp.conf:z
+      - ./logs/remota:/var/log/asterisk:z
+    healthcheck:
+      test: ["CMD", "asterisk", "-rx", "core show version"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  voip-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1

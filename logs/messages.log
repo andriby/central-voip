@@ -1,0 +1,109 @@
+[Sep 26 03:28:32] NOTICE[31] res_pjsip/config_transport.c: Transport 'transport-udp' is not fully reloadable, not reloading: protocol, bind, TLS (everything but certificate and private key if filename is unchanged), TCP, ToS, or CoS options.
+[Sep 26 03:28:32] NOTICE[31] res_pjsip/config_transport.c: Transport 'transport-tcp' is not fully reloadable, not reloading: protocol, bind, TLS (everything but certificate and private key if filename is unchanged), TCP, ToS, or CoS options.
+[Sep 26 03:28:32] NOTICE[31] res_pjsip/config_transport.c: Transport 'transport-tls' is not fully reloadable, not reloading: protocol, bind, TLS (everything but certificate and private key if filename is unchanged), TCP, ToS, or CoS options.
+[Sep 26 03:28:32] NOTICE[31] sorcery.c: Type 'system' is not reloadable, maintaining previous values
+[Sep 26 14:05:48] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-25 03:58:44 UTC
+[Sep 26 14:05:48] NOTICE[1] loader.c: 316 modules will be loaded.
+[Sep 26 14:05:49] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Sep 26 14:05:49] NOTICE[1] indications.c: Default country for indication tones: us
+[Sep 26 14:05:49] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Sep 26 14:05:50] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 26 14:05:50] ERROR[1] res_rtp_asterisk.c: Failed to setup recurring DNS resolution of stunaddr ''
+[Sep 26 14:05:50] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Sep 26 14:05:50] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Sep 26 14:05:50] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Sep 26 14:05:50] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Sep 26 14:05:50] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Sep 26 14:05:50] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Sep 26 14:05:50] WARNING[1] loader.c: Some non-required modules failed to load.
+[Sep 26 14:05:50] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Sep 26 14:05:50] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Sep 26 14:05:50] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Sep 26 14:05:50] ERROR[1] loader.c: cdr_custom declined to load.
+[Sep 26 14:05:50] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Sep 26 14:05:50] ERROR[1] loader.c: cel_custom declined to load.
+[Sep 26 14:05:50] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Sep 28 15:16:10] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-25 03:58:44 UTC
+[Sep 28 15:16:11] NOTICE[1] loader.c: 316 modules will be loaded.
+[Sep 28 15:16:12] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Sep 28 15:16:12] NOTICE[1] indications.c: Default country for indication tones: us
+[Sep 28 15:16:12] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Sep 28 15:16:12] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Sep 28 15:16:12] ERROR[1] res_rtp_asterisk.c: Failed to setup recurring DNS resolution of stunaddr ''
+[Sep 28 15:16:12] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Sep 28 15:16:13] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Sep 28 15:16:13] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Sep 28 15:16:13] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Sep 28 15:16:13] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Sep 28 15:16:13] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Sep 28 15:16:13] WARNING[1] loader.c: Some non-required modules failed to load.
+[Sep 28 15:16:13] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Sep 28 15:16:13] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Sep 28 15:16:13] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Sep 28 15:16:13] ERROR[1] loader.c: cdr_custom declined to load.
+[Sep 28 15:16:13] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Sep 28 15:16:13] ERROR[1] loader.c: cel_custom declined to load.
+[Sep 28 15:16:13] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Oct  2 03:32:11] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-25 03:58:44 UTC
+[Oct  2 03:32:11] NOTICE[1] loader.c: 316 modules will be loaded.
+[Oct  2 03:32:14] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Oct  2 03:32:14] NOTICE[1] indications.c: Default country for indication tones: us
+[Oct  2 03:32:14] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Oct  2 03:32:15] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Oct  2 03:32:15] ERROR[1] res_rtp_asterisk.c: Failed to setup recurring DNS resolution of stunaddr ''
+[Oct  2 03:32:15] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Oct  2 03:32:15] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Oct  2 03:32:15] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Oct  2 03:32:15] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Oct  2 03:32:15] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Oct  2 03:32:15] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Oct  2 03:32:16] WARNING[1] loader.c: Some non-required modules failed to load.
+[Oct  2 03:32:16] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Oct  2 03:32:16] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Oct  2 03:32:16] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Oct  2 03:32:16] ERROR[1] loader.c: cdr_custom declined to load.
+[Oct  2 03:32:16] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Oct  2 03:32:16] ERROR[1] loader.c: cel_custom declined to load.
+[Oct  2 03:32:16] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Oct  7 02:58:55] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-25 03:58:44 UTC
+[Oct  7 02:58:55] NOTICE[1] loader.c: 316 modules will be loaded.
+[Oct  7 02:58:56] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Oct  7 02:58:56] NOTICE[1] indications.c: Default country for indication tones: us
+[Oct  7 02:58:56] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Oct  7 02:58:56] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Oct  7 02:58:56] ERROR[1] res_rtp_asterisk.c: Failed to setup recurring DNS resolution of stunaddr ''
+[Oct  7 02:58:56] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Oct  7 02:58:56] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Oct  7 02:58:57] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Oct  7 02:58:57] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Oct  7 02:58:57] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Oct  7 02:58:57] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Oct  7 02:58:57] WARNING[1] loader.c: Some non-required modules failed to load.
+[Oct  7 02:58:57] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Oct  7 02:58:57] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Oct  7 02:58:57] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Oct  7 02:58:57] ERROR[1] loader.c: cdr_custom declined to load.
+[Oct  7 02:58:57] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Oct  7 02:58:57] ERROR[1] loader.c: cel_custom declined to load.
+[Oct  7 02:58:57] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Oct 10 17:48:49] Asterisk 20.21.0 built by root @ buildkitsandbox on a x86_64 running Linux on 2026-09-25 03:58:44 UTC
+[Oct 10 17:48:49] NOTICE[1] loader.c: 316 modules will be loaded.
+[Oct 10 17:48:50] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Oct 10 17:48:50] NOTICE[1] indications.c: Default country for indication tones: us
+[Oct 10 17:48:50] NOTICE[1] indications.c: Setting default indication country to 'us'
+[Oct 10 17:48:50] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Oct 10 17:48:50] ERROR[1] res_rtp_asterisk.c: Failed to setup recurring DNS resolution of stunaddr ''
+[Oct 10 17:48:50] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Oct 10 17:48:51] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Oct 10 17:48:51] NOTICE[1] cdrel_custom/config.c: cdr_custom.conf: Loaded 0 configs
+[Oct 10 17:48:51] NOTICE[1] cdrel_custom/config.c: cdr_sqlite3_custom.conf: Loaded 0 configs
+[Oct 10 17:48:51] NOTICE[1] cdrel_custom/config.c: cel_custom.conf: Loaded 0 configs
+[Oct 10 17:48:51] NOTICE[1] cdrel_custom/config.c: cel_sqlite3_custom.conf: Loaded 0 configs
+[Oct 10 17:48:51] WARNING[1] loader.c: Some non-required modules failed to load.
+[Oct 10 17:48:51] WARNING[1] loader.c: Module 'res_adsi' has been loaded but may be removed in a future release.
+[Oct 10 17:48:51] WARNING[1] loader.c: Module 'app_adsiprog' has been loaded but may be removed in a future release.
+[Oct 10 17:48:51] WARNING[1] loader.c: Module 'app_getcpeid' has been loaded but may be removed in a future release.
+[Oct 10 17:48:51] ERROR[1] loader.c: cdr_custom declined to load.
+[Oct 10 17:48:51] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Oct 10 17:48:51] ERROR[1] loader.c: cel_custom declined to load.
+[Oct 10 17:48:51] ERROR[1] loader.c: cel_sqlite3_custom declined to load.

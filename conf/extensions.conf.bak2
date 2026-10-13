@@ -1,0 +1,65 @@
+;=============================================
+; Extensions Configuration - NovaLink C.A.
+; Central VoIP - Proyecto Comunicacion de Datos
+;=============================================
+
+[general]
+static=yes
+writeprotect=no
+
+;--- Contexto: Llamadas Internas ---
+[internas]
+; Extension 1001 - Adrian
+exten => 1001,1,Dial(PJSIP/1001,20,Tt)
+ same => n,Hangup()
+
+; Extension 1002 - Aaron
+exten => 1002,1,Dial(PJSIP/1002,20,Tt)
+ same => n,Hangup()
+
+;--- Funciones PBX ---
+; Conferencia (extension 8600)
+exten => 8600,1,Answer()
+ same => n,ConfBridge(8600,default_bridge,default_user)
+ same => n,Hangup()
+
+; Desvio de llamada - activar/desactivar
+; *21*1002 desvia a 1002, #21 cancela
+exten => *21,1,Set(DB(CFW/${CALLERID(num)})=${EXTEN:3})
+ same => n,Playback(call-forwarding)
+ same => n,SayDigits(${EXTEN:3})
+ same => n,Hangup()
+
+; Buzon de voz (simulado)
+exten => 8500,1,VoiceMailMain(${CALLERID(num)}@default)
+ same => n,Hangup()
+
+;--- Contexto: Llamadas Entrantes por Troncal ---
+[from-trunk]
+exten => _X.,1,NoOp(Llamada entrante por troncal: ${EXTEN})
+ same => n,Dial(PJSIP/1001,20)
+ same => n,Hangup()
+
+;--- Contexto: Llamadas Salientes ---
+[outgoing]
+; Llamadas internacionales por troncal (prefijo 00)
+exten => _00.,1,NoOp(Llamada internacional: ${EXTEN})
+ same => n,Dial(PJSIP/${EXTEN:2}@troncal-remota,30)
+ same => n,Hangup()
+
+; Llamadas locales por troncal (prefijo 9)
+exten => _9X.,1,NoOp(Llamada saliente por troncal: ${EXTEN})
+ same => n,Dial(PJSIP/${EXTEN:1}@troncal-remota,30)
+ same => n,Hangup()
+
+;--- Contexto para llamadas desviadas ---
+[desvio]
+exten => _100X,1,NoOp(Desvio hacia ${EXTEN})
+ same => n,Dial(PJSIP/${EXTEN},30)
+ same => n,Hangup()
+
+;--- Contexto para llamadas estacionadas que superan el tiempo ---
+[parkedcalls-timeout]
+exten => s,1,NoOp(Llamada estacionada excedio 15 minutos)
+ same => n,Playback(vm-goodbye)
+ same => n,Hangup()

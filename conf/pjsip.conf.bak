@@ -1,0 +1,132 @@
+;=============================================
+; PJSIP Configuration - NovaLink C.A.
+; Central VoIP - Proyecto Comunicacion de Datos
+;=============================================
+
+;--- Transporte UDP ---
+[transport-udp]
+type=transport
+protocol=udp
+bind=0.0.0.0:5060
+external_signaling_address=10.119.203.172
+external_media_address=10.119.203.172
+local_net=172.18.0.0/16
+local_net=127.0.0.1/32
+local_net=10.119.203.0/24
+
+;--- Transporte TCP ---
+[transport-tcp]
+type=transport
+protocol=tcp
+bind=0.0.0.0:5060
+external_signaling_address=10.119.203.172
+external_media_address=10.119.203.172
+local_net=172.18.0.0/16
+local_net=127.0.0.1/32
+local_net=10.119.203.0/24
+
+;--- Transporte TLS ---
+[transport-tls]
+type=transport
+protocol=tls
+bind=0.0.0.0:5061
+cert_file=/etc/asterisk/certs/asterisk.crt
+priv_key_file=/etc/asterisk/certs/asterisk.key
+method=tlsv1_2
+
+;--- Extension 1001: Adrian Campos ---
+[1001]
+type=endpoint
+context=internas
+disallow=all
+allow=ulaw
+allow=alaw
+allow=g729
+auth=auth-1001
+aors=1001
+callerid="Adrian Campos" <1001>
+; Call Hold: colgar automaticamente despues de 900s (15 min) en hold
+rtp_timeout=900
+rtp_timeout_hold=900
+; NAT settings para ZeroTier
+rtp_symmetric=yes
+rewrite_contact=yes
+force_rport=yes
+direct_media=no
+
+[auth-1001]
+type=auth
+auth_type=userpass
+username=1001
+password=nova1001
+
+[1001]
+type=aor
+max_contacts=1
+
+;--- Extension 1002: Aaron Contreras ---
+[1002]
+type=endpoint
+context=internas
+disallow=all
+allow=ulaw
+allow=alaw
+allow=g729
+auth=auth-1002
+aors=1002
+callerid="Aaron Contreras" <1002>
+; Call Hold: colgar automaticamente despues de 900s (15 min) en hold
+rtp_timeout=900
+rtp_timeout_hold=900
+; NAT settings para ZeroTier
+rtp_symmetric=yes
+rewrite_contact=yes
+force_rport=yes
+direct_media=no
+
+[auth-1002]
+type=auth
+auth_type=userpass
+username=1002
+password=nova1002
+
+[1002]
+type=aor
+max_contacts=1
+
+;--- Troncal SIP hacia otra central ---
+[troncal-remota]
+type=endpoint
+context=from-trunk
+disallow=all
+allow=ulaw
+allow=alaw
+allow=g729
+auth=auth-troncal
+aors=troncal-remota
+outbound_auth=auth-troncal
+callerid="Troncal Remota" <0>
+
+[auth-troncal]
+type=auth
+auth_type=userpass
+username=troncal
+password=troncal123
+
+[troncal-remota]
+type=aor
+max_contacts=1
+contact=sip:troncal@172.18.0.5:5064
+remove_existing=yes
+
+[troncal-remota]
+type=identify
+endpoint=troncal-remota
+match=172.18.0.5
+
+[reg-troncal]
+type=registration
+transport=transport-udp
+outbound_auth=auth-troncal
+server_uri=sip:172.18.0.5:5064
+client_uri=sip:troncal@172.18.0.5:5064

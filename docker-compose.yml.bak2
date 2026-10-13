@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  pbx-asterisk:
+    image: asterisk-custom:latest
+    container_name: pbx-asterisk
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./conf/pjsip.conf:/etc/asterisk/pjsip.conf:z
+      - ./conf/extensions.conf:/etc/asterisk/extensions.conf:z
+      - ./conf/features.conf:/etc/asterisk/features.conf:z
+      - ./conf/res_parking.conf:/etc/asterisk/res_parking.conf:z
+      - ./conf/confbridge.conf:/etc/asterisk/confbridge.conf:z
+      - ./conf/rtp.conf:/etc/asterisk/rtp.conf:z
+      - ./certs:/etc/asterisk/certs:z
+      - ./logs:/var/log/asterisk:z
+    healthcheck:
+      test: ["CMD", "asterisk", "-rx", "core show version"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  sipp-1001:
+    image: ctaloi/sipp
+    container_name: sipp-1001
+    entrypoint: sipp
+    command: ["-sn", "uas", "-i", "0.0.0.0", "-p", "5062"]
+    networks:
+      - voip-net
+    depends_on:
+      - pbx-asterisk
+
+  sipp-1002:
+    image: ctaloi/sipp
+    container_name: sipp-1002
+    entrypoint: sipp
+    command: ["-sn", "uas", "-i", "0.0.0.0", "-p", "5063"]
+    networks:
+      - voip-net
+    depends_on:
+      - pbx-asterisk
+
+  sipp-troncal:
+    image: ctaloi/sipp
+    container_name: sipp-troncal
+    entrypoint: sipp
+    command: ["-sn", "uas", "-i", "0.0.0.0", "-p", "5064"]
+    networks:
+      - voip-net
+    depends_on:
+      - pbx-asterisk
+
+networks:
+  voip-net:
+    driver: bridge
