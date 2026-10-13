@@ -123,7 +123,7 @@ capture: ## Capturar trafico SIP durante una llamada
 	@echo ""
 	@echo "$(CYAN)=== CAPTURA DE TRAFICO SIP ===$(NC)"
 	@# Obtener ID de la red
-	@NETWORK_ID=$$(docker network inspect central-voip_voip-net --format '{{.ID}}' | cut -c1-12) && \
+	@NETWORK_ID=$$(docker network inspect $(notdir $(CURDIR))_voip-net --format '{{.ID}}' | cut -c1-12) && \
 	BRIDGE_IF=$$(ip link show | grep "br-$$NETWORK_ID" | awk -F': ' '{print $$2}' | head -1) && \
 	echo "Interface: $$BRIDGE_IF" && \
 	echo "Iniciando captura..." && \

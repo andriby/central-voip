@@ -78,6 +78,124 @@ get_local_net() {
     fi
 }
 
+#--- Detección y configuración de subred Docker ---
+
+get_free_subnet() {
+    local candidates=(
+        "172.31.254.0/24"
+        "10.250.0.0/24"
+        "172.30.254.0/24"
+        "10.251.0.0/24"
+        "192.168.254.0/24"
+        "172.29.254.0/24"
+        "10.252.0.0/24"
+        "172.28.254.0/24"
+    )
+    
+    for subnet in "${candidates[@]}"; do
+        local base=$(echo "$subnet" | cut -d/ -f1 | rev | cut -d. -f2- | rev)
+        
+        # Verificar rutas del sistema
+        local conflict=false
+        while IFS= read -r route; do
+            [ "$route" = "*" ] && continue
+            local r3=$(echo "$route" | cut -d/ -f1 | rev | cut -d. -f2- | rev 2>/dev/null)
+            if [ "$base" = "$r3" ]; then
+                conflict=true
+                break
+            fi
+        done < <(ip route show 2>/dev/null | awk '{print $1}' | grep -E '^(10\.|172\.|192\.168\.)')
+        
+        if [ "$conflict" = true ]; then
+            continue
+        fi
+        
+        # Verificar redes Docker
+        if docker info &> /dev/null 2>&1; then
+            while IFS= read -r net; do
+                local n3=$(echo "$net" | cut -d/ -f1 | rev | cut -d. -f2- | rev 2>/dev/null)
+                if [ "$base" = "$n3" ]; then
+                    conflict=true
+                    break
+                fi
+            done < <(docker network ls -q 2>/dev/null | xargs -I{} docker network inspect {} \
+                --format '{{range .IPAM.Config}}{{.Subnet}} {{end}}' 2>/dev/null | tr ' ' '\n' | grep -v '^$')
+        fi
+        
+        if [ "$conflict" = false ]; then
+            echo "$subnet"
+            return 0
+        fi
+    done
+    
+    echo "172.31.254.0/24"
+}
+
+configure_docker_network() {
+    log_step "CONFIGURANDO RED DOCKER"
+    
+    # Leer subnet actual del docker-compose.yml
+    local old_subnet=$(grep "subnet:" "$PROYECTO_DIR/docker-compose.yml" | awk '{print $2}')
+    local old_gateway=$(grep "gateway:" "$PROYECTO_DIR/docker-compose.yml" | awk '{print $2}')
+    local old_remota=$(grep "ipv4_address:" "$PROYECTO_DIR/docker-compose.yml" | awk '{print $2}')
+    
+    if [ -z "$old_subnet" ]; then
+        log_warn "No se pudo leer subnet de docker-compose.yml"
+        return
+    fi
+    
+    log_info "Subnet actual: $old_subnet"
+    
+    # Eliminar red propia si existe (se recreara con compose up)
+    local project_name=$(basename "$PROYECTO_DIR")
+    docker network rm "${project_name}_voip-net" 2>/dev/null && \
+        log_info "Red anterior eliminada" || true
+    
+    # Verificar conflictos con otras redes Docker
+    if ! docker info &> /dev/null 2>&1; then
+        log_warn "Docker no esta corriendo, omitiendo verificacion de red"
+        return
+    fi
+    
+    # Probar si el subnet esta disponible creando una red temporal
+    local test_name="voip-subnet-check-$$"
+    if docker network create --subnet="$old_subnet" "$test_name" 2>/dev/null; then
+        docker network rm "$test_name" 2>/dev/null
+        log_success "Subnet $old_subnet disponible"
+    else
+        docker network rm "$test_name" 2>/dev/null
+        log_warn "Subnet $old_subnet en conflicto con otra red Docker"
+        
+        local new_subnet=$(get_free_subnet)
+        if [ "$new_subnet" = "$old_subnet" ]; then
+            log_error "No se encontro un subnet libre"
+            return
+        fi
+        
+        log_info "Cambiando subnet: $old_subnet -> $new_subnet"
+        
+        local new_gateway="${new_subnet%/*}.1"
+        local new_remota="${new_subnet%/*}.50"
+        
+        # Actualizar todos los archivos de configuracion
+        local files=(
+            "docker-compose.yml"
+            "conf/pjsip.conf"
+            "conf/remota/pjsip.conf"
+        )
+        
+        for f in "${files[@]}"; do
+            if [ -f "$PROYECTO_DIR/$f" ]; then
+                sed -i "s|$old_subnet|$new_subnet|g" "$PROYECTO_DIR/$f"
+                sed -i "s|$old_gateway|$new_gateway|g" "$PROYECTO_DIR/$f"
+                sed -i "s|$old_remota|$new_remota|g" "$PROYECTO_DIR/$f"
+            fi
+        done
+        
+        log_success "Red actualizada: $new_subnet (gateway: $new_gateway, remota: $new_remota)"
+    fi
+}
+
 #--- Banner de bienvenida ---
 
 show_banner() {
@@ -683,6 +801,7 @@ main() {
     cleanup_temp
     prepare_directories
     configure_network
+    configure_docker_network
     build_image
     start_services
     verify_installation

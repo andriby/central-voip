@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   pbx-asterisk:
     image: asterisk-custom:latest
@@ -28,7 +26,7 @@ services:
     restart: unless-stopped
     networks:
       voip-net:
-        ipv4_address: 172.18.0.50
+        ipv4_address: 172.31.254.50
     ports:
       - "5064:5064/udp"
       - "10101-10200:10101-10200/udp"
@@ -48,5 +46,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.18.0.0/16
-          gateway: 172.18.0.1
+        - subnet: 172.31.254.0/24
+          gateway: 172.31.254.1
